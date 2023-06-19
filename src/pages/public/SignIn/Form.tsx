@@ -1,9 +1,11 @@
 import { useFormik } from 'formik';
+import _ from 'lodash';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import isMobilePhone from 'validator/lib/isMobilePhone';
 import { z } from 'zod';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
+import { SignInAPI } from '../../../api/auth';
 
 const schema = z.object({
     mobileNumber: z
@@ -20,7 +22,7 @@ const schema = z.object({
         })
         .nonempty('The Password field is required.')
 });
-export type SchemaType = z.infer<typeof schema>;
+export type SignInFormSchemaType = z.infer<typeof schema>;
 
 const Form = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -35,8 +37,13 @@ const Form = () => {
             mobileNumber: '',
             password: ''
         },
-        onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
+        onSubmit: async (values) => {
+            try {
+                const data = await SignInAPI(values);
+                console.log(data);
+            } catch (error) {
+                console.log(_.get(error, 'response.data.message'));
+            }
         }
     });
 
@@ -56,6 +63,7 @@ const Form = () => {
 
                 <div className="bg-[#E5E7EB] h-11 w-full px-3 rounded-md mt-2 mb-1">
                     <input
+                        autoFocus
                         type="text"
                         id="mobileNumber"
                         className="bg-[#E5E7EB] h-full w-full outline-none"
@@ -71,7 +79,7 @@ const Form = () => {
                     />
                 </div>
 
-                {formik.errors.mobileNumber ? (
+                {formik.touched.mobileNumber && formik.errors.mobileNumber ? (
                     <p className="text-[#FC3C2A] text-xs">{formik.errors.mobileNumber}</p>
                 ) : null}
             </div>
@@ -133,7 +141,7 @@ const Form = () => {
                     </div>
                 </div>
 
-                {formik.errors.password ? (
+                {formik.touched.password && formik.errors.password ? (
                     <p className="text-[#FC3C2A] text-xs">{formik.errors.password}</p>
                 ) : null}
             </div>
