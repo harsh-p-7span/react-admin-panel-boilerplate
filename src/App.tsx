@@ -3,9 +3,11 @@ import Router from './router';
 
 const App = () => {
     return (
-        <BrowserRouter>
-            <Router />
-        </BrowserRouter>
+        <div className="w-screen h-screen">
+            <BrowserRouter>
+                <Router />
+            </BrowserRouter>
+        </div>
     );
 };
 
