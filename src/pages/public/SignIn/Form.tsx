@@ -7,6 +7,7 @@ import { z } from 'zod';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { SignInAPI } from '../../../api/auth';
 import toast from '../../../libs/toast';
+import { useMutation } from '@tanstack/react-query';
 
 const schema = z.object({
     mobileNumber: z
@@ -32,6 +33,16 @@ const Form = () => {
         setShowPassword((prev) => !prev);
     };
 
+    const mutation = useMutation({
+        mutationFn: SignInAPI,
+        onSuccess: (data) => {
+            console.log(data);
+        },
+        onError(error) {
+            toast(_.get(error, 'response.data.message'));
+        }
+    });
+
     const formik = useFormik({
         validationSchema: toFormikValidationSchema(schema),
         initialValues: {
@@ -39,12 +50,7 @@ const Form = () => {
             password: ''
         },
         onSubmit: async (values) => {
-            try {
-                const data = await SignInAPI(values);
-                console.log(data);
-            } catch (error) {
-                toast(_.get(error, 'response.data.message'));
-            }
+            mutation.mutate(values);
         }
     });
 

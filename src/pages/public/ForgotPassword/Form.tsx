@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
@@ -19,18 +20,23 @@ const schema = z.object({
 export type ForgotPasswordFormSchemaType = z.infer<typeof schema>;
 
 const Form = () => {
+    const mutation = useMutation({
+        mutationFn: ResetPasswordAPI,
+        onSuccess: (data) => {
+            console.log(data);
+        },
+        onError(error) {
+            toast(_.get(error, 'response.data.message'));
+        }
+    });
+
     const formik = useFormik({
         validationSchema: toFormikValidationSchema(schema),
         initialValues: {
             mobileNumber: ''
         },
         onSubmit: async (values) => {
-            try {
-                const data = await ResetPasswordAPI(values);
-                console.log(data);
-            } catch (error) {
-                toast(_.get(error, 'response.data.message'));
-            }
+            mutation.mutate(values);
         }
     });
 
