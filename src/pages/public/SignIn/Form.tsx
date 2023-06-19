@@ -1,5 +1,9 @@
-import { z } from 'zod';
+import { useFormik } from 'formik';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import isMobilePhone from 'validator/lib/isMobilePhone';
+import { z } from 'zod';
+import { toFormikValidationSchema } from 'zod-formik-adapter';
 
 const schema = z.object({
     mobileNumber: z
@@ -7,7 +11,8 @@ const schema = z.object({
             required_error: 'The Mobile Number field is required.',
             invalid_type_error: 'The Mobile Number field is required.'
         })
-        .nonempty('The Mobile Number field is required.'),
+        .nonempty('The Mobile Number field is required.')
+        .refine((data) => isMobilePhone(data, 'en-IN'), 'Enter a valid mobile number.'),
     password: z
         .string({
             required_error: 'The Password field is required.',
@@ -24,11 +29,23 @@ const Form = () => {
         setShowPassword((prev) => !prev);
     };
 
+    const formik = useFormik({
+        validationSchema: toFormikValidationSchema(schema),
+        initialValues: {
+            mobileNumber: '',
+            password: ''
+        },
+        onSubmit: (values) => {
+            alert(JSON.stringify(values, null, 2));
+        }
+    });
+
     return (
         <form
             className="w-1/2 bg-white flex justify-center items-center flex-col"
             noValidate
             autoComplete="off"
+            onSubmit={formik.handleSubmit}
         >
             <h3 className="text-5xl font-bold text-gray-700 py-6">Login</h3>
 
@@ -39,13 +56,24 @@ const Form = () => {
 
                 <div className="bg-[#E5E7EB] h-11 w-full px-3 rounded-md mt-2 mb-1">
                     <input
-                        type="number"
+                        type="text"
                         id="mobileNumber"
                         className="bg-[#E5E7EB] h-full w-full outline-none"
+                        value={formik.values.mobileNumber}
+                        onChange={(e) => {
+                            e.preventDefault();
+
+                            const regex = new RegExp(/^[0-9]{0,10}$/gm);
+                            if (regex.test(e.target.value)) {
+                                formik.setFieldValue('mobileNumber', e.target.value);
+                            }
+                        }}
                     />
                 </div>
 
-                <p className="text-[#FC3C2A] text-xs">The Mobile Number field is required</p>
+                {formik.errors.mobileNumber ? (
+                    <p className="text-[#FC3C2A] text-xs">{formik.errors.mobileNumber}</p>
+                ) : null}
             </div>
 
             <div className="flex flex-col mt-4 w-96">
@@ -58,6 +86,8 @@ const Form = () => {
                         type={showPassword ? 'text' : 'password'}
                         id="password"
                         className="bg-[#E5E7EB] h-full w-full outline-none"
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
                     />
 
                     <div
@@ -103,7 +133,20 @@ const Form = () => {
                     </div>
                 </div>
 
-                <p className="text-[#FC3C2A] text-xs">The Password field is required</p>
+                {formik.errors.password ? (
+                    <p className="text-[#FC3C2A] text-xs">{formik.errors.password}</p>
+                ) : null}
+            </div>
+
+            <div className="w-96 flex justify-between items-center mt-8">
+                <button
+                    type="submit"
+                    className="bg-[#F80400] text-white py-3 px-2 text-sm rounded-md w-36"
+                >
+                    Login
+                </button>
+
+                <Link to="/forgot-password">Forgot Password?</Link>
             </div>
         </form>
     );
