@@ -6,6 +6,7 @@ import isMobilePhone from 'validator/lib/isMobilePhone';
 import { z } from 'zod';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { SignInAPI } from '../../../api/auth';
+import toast from '../../../libs/toast';
 
 const schema = z.object({
     mobileNumber: z
@@ -42,7 +43,7 @@ const Form = () => {
                 const data = await SignInAPI(values);
                 console.log(data);
             } catch (error) {
-                console.log(_.get(error, 'response.data.message'));
+                toast(_.get(error, 'response.data.message'));
             }
         }
     });
