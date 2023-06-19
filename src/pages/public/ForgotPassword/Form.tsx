@@ -7,6 +7,7 @@ import { z } from 'zod';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { ResetPasswordAPI } from '../../../api/auth';
 import toast from '../../../libs/toast';
+import { useState } from 'react';
 
 const schema = z.object({
     mobileNumber: z
@@ -20,10 +21,13 @@ const schema = z.object({
 export type ForgotPasswordFormSchemaType = z.infer<typeof schema>;
 
 const Form = () => {
+    const [successMessage, setSuccessMessage] = useState<undefined | string>();
+
     const { mutate, isLoading } = useMutation({
         mutationFn: ResetPasswordAPI,
         onSuccess: (data) => {
             console.log(data);
+            setSuccessMessage(_.get(data, 'message'));
         },
         onError(error) {
             toast(_.get(error, 'response.data.message'));
@@ -40,7 +44,18 @@ const Form = () => {
         }
     });
 
-    return (
+    return successMessage ? (
+        <div className="w-1/2 flex justify-center items-center flex-col">
+            <p className="text-xl text-center">{successMessage}</p>
+
+            <Link
+                to="/signin"
+                className="mt-4 bg-[#F80400] text-white py-3 px-2 text-sm rounded-md w-36 text-center"
+            >
+                Login?
+            </Link>
+        </div>
+    ) : (
         <form
             className="w-1/2 bg-white flex justify-center items-center flex-col"
             noValidate
@@ -108,7 +123,7 @@ const Form = () => {
                     )}
                 </button>
 
-                <Link to="/login">Login?</Link>
+                <Link to="/signin">Login?</Link>
             </div>
         </form>
     );
