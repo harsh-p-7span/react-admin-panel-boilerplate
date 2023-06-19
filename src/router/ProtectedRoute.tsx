@@ -3,6 +3,7 @@ import { getUserToken } from '../utils/manageUserToken';
 import routes from './routes';
 import lazyLoad from '../libs/lazyLoad';
 import React from 'react';
+import Sidebar from '../components/Sidebar';
 
 const ProtectedRoute = ({
     children
@@ -18,7 +19,13 @@ const ProtectedRoute = ({
         );
     }
 
-    return lazyLoad(children);
+    return (
+        <div className="flex h-full">
+            <Sidebar />
+
+            {lazyLoad(children)}
+        </div>
+    );
 };
 
 export default ProtectedRoute;
