@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import PublicRoute from './PublicRoute';
 import routes from './routes';
@@ -29,6 +29,8 @@ const Router = () => {
                 element={<PublicRoute>{ForgotPassword}</PublicRoute>}
                 path={routes.public.forgotPassword}
             />
+
+            <Route element={<Navigate to={routes.private.dashboard} />} path="*" />
         </Routes>
     );
 };
