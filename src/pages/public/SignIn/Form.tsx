@@ -1,13 +1,14 @@
 import { useFormik } from 'formik';
 import _ from 'lodash';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import isMobilePhone from 'validator/lib/isMobilePhone';
 import { z } from 'zod';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { SignInAPI } from '../../../api/auth';
 import toast from '../../../libs/toast';
 import { useMutation } from '@tanstack/react-query';
+import routes from '../../../router/routes';
 
 const schema = z.object({
     mobileNumber: z
@@ -27,6 +28,8 @@ const schema = z.object({
 export type SignInFormSchemaType = z.infer<typeof schema>;
 
 const Form = () => {
+    const navigate = useNavigate();
+
     const [showPassword, setShowPassword] = useState(false);
 
     const handleToggleShowPassword = () => {
@@ -37,6 +40,7 @@ const Form = () => {
         mutationFn: SignInAPI,
         onSuccess: (data) => {
             console.log(data);
+            navigate(routes.private.dashboard);
         },
         onError(error) {
             toast(_.get(error, 'response.data.message'));
@@ -185,7 +189,7 @@ const Form = () => {
                     )}
                 </button>
 
-                <Link to="/forgot-password">Forgot Password?</Link>
+                <Link to={routes.public.forgotPassword}>Forgot Password?</Link>
             </div>
         </form>
     );

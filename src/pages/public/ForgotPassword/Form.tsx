@@ -8,6 +8,7 @@ import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { ResetPasswordAPI } from '../../../api/auth';
 import toast from '../../../libs/toast';
 import { useState } from 'react';
+import routes from '../../../router/routes';
 
 const schema = z.object({
     mobileNumber: z
@@ -49,7 +50,7 @@ const Form = () => {
             <p className="text-xl text-center">{successMessage}</p>
 
             <Link
-                to="/signin"
+                to={routes.public.signin}
                 className="mt-4 bg-[#F80400] text-white py-3 px-2 text-sm rounded-md w-36 text-center"
             >
                 Login?
@@ -123,7 +124,7 @@ const Form = () => {
                     )}
                 </button>
 
-                <Link to="/signin">Login?</Link>
+                <Link to={routes.public.signin}>Login?</Link>
             </div>
         </form>
     );

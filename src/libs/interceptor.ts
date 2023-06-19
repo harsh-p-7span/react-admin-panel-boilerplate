@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import axios from 'axios';
+import { setUserToken } from '../utils/manageUserToken';
 
 const BASE_URL = 'http://localhost:3000/';
 const request = axios.create({
@@ -24,7 +25,7 @@ request.interceptors.response.use(
         // Do something with response data
 
         if (_.get(response, 'data.token')) {
-            localStorage.setItem('boilerplate-token', _.get(response, 'data.token'));
+            setUserToken(_.get(response, 'data.token'));
         }
         return response.data;
     },
