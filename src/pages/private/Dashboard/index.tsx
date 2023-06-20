@@ -6,8 +6,6 @@ const Dashboard = () => {
         <div className="bg-gray-100 p-4 space-y-5">
             <Statistics />
             <Chart />
-
-            <div className="h-screen"></div>
         </div>
     );
 };

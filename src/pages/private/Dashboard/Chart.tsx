@@ -1,3 +1,4 @@
+import ApexChart from 'react-apexcharts';
 import { useEffect, useState } from 'react';
 import Dropdown from '../../../components/form/Dropdown';
 
@@ -13,10 +14,115 @@ const Chart = () => {
         setSelectedYear(value);
     };
 
+    const chartDetails: {
+        options: ApexCharts.ApexOptions;
+        series: ApexAxisChartSeries;
+    } = {
+        series: [
+            {
+                name: 'IRS',
+                data: []
+            },
+            {
+                name: 'Fogging',
+                data: []
+            },
+            {
+                name: 'RWA',
+                data: []
+            }
+        ],
+        options: {
+            chart: {
+                type: 'bar',
+                height: 350,
+                toolbar: {
+                    show: false
+                },
+                selection: {
+                    enabled: false
+                }
+            },
+            colors: ['#F20612', '#006A80', '#169042'],
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '80%'
+                }
+            },
+            grid: {
+                xaxis: {
+                    lines: {
+                        show: false
+                    }
+                },
+                yaxis: {
+                    lines: {
+                        show: true
+                    }
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            xaxis: {
+                categories: []
+            },
+            yaxis: {
+                title: {
+                    text: 'Number Of Task'
+                },
+                labels: {
+                    formatter: function (val) {
+                        return val.toFixed(0);
+                    }
+                }
+            },
+            fill: {
+                opacity: 1
+            }
+        }
+    };
+
     useEffect(() => {
         console.log(selectedMonth);
         console.log(selectedYear);
     }, [selectedMonth, selectedYear]);
+
+    useEffect(() => {
+        // if (isChartUpdated) {
+        //     return;
+        // }
+
+        const irs = [];
+        const fogging = [];
+        const rwa = [];
+        const dates = [];
+
+        for (let i = 0; i < 10; i++) {
+            irs.push(+(Math.random() * (30 - 1 + 1) + 1).toFixed(0));
+            fogging.push(+(Math.random() * (30 - 1 + 1) + 1).toFixed(0));
+            rwa.push(+(Math.random() * (30 - 1 + 1) + 1).toFixed(0));
+            dates.push(new Date(`${i + 1}/12/2023`).toLocaleDateString('en-US'));
+        }
+
+        chartDetails.series[0].data = irs;
+        chartDetails.series[1].data = fogging;
+        chartDetails.series[2].data = rwa;
+
+        console.log(new Date().toLocaleDateString('en-US'));
+
+        if (chartDetails.options.xaxis) chartDetails.options.xaxis.categories = dates;
+
+        console.log(irs);
+        // setIsChartUpdated(true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div className="bg-white rounded shadow">
@@ -39,6 +145,16 @@ const Chart = () => {
                             handleChangeSelected={handleChangeYear}
                         />
                     </div>
+                </div>
+            </div>
+
+            <div className="p-2">
+                <div className="w-full" id="chart">
+                    <ApexChart
+                        options={chartDetails.options}
+                        series={chartDetails.series}
+                        type="bar"
+                    />
                 </div>
             </div>
         </div>
