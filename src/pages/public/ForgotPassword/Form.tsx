@@ -27,7 +27,6 @@ const Form = () => {
     const { mutate, isLoading } = useMutation({
         mutationFn: ResetPasswordAPI,
         onSuccess: (data) => {
-            console.log(data);
             setSuccessMessage(_.get(data, 'message'));
         },
         onError(error) {

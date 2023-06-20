@@ -90,15 +90,6 @@ const Chart = () => {
     };
 
     useEffect(() => {
-        console.log(selectedMonth);
-        console.log(selectedYear);
-    }, [selectedMonth, selectedYear]);
-
-    useEffect(() => {
-        // if (isChartUpdated) {
-        //     return;
-        // }
-
         const irs = [];
         const fogging = [];
         const rwa = [];
@@ -115,12 +106,8 @@ const Chart = () => {
         chartDetails.series[1].data = fogging;
         chartDetails.series[2].data = rwa;
 
-        console.log(new Date().toLocaleDateString('en-US'));
-
         if (chartDetails.options.xaxis) chartDetails.options.xaxis.categories = dates;
 
-        console.log(irs);
-        // setIsChartUpdated(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

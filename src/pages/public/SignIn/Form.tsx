@@ -38,8 +38,7 @@ const Form = () => {
 
     const { mutate, isLoading } = useMutation({
         mutationFn: SignInAPI,
-        onSuccess: (data) => {
-            console.log(data);
+        onSuccess: () => {
             navigate(routes.private.dashboard.url);
         },
         onError(error) {
