@@ -19,7 +19,10 @@ const Sidebar = () => {
         >
             <Logo expandSideBar={expandSideBar} />
 
-            <Links handleToggleExpandSideBar={handleToggleExpandSideBar} />
+            <Links
+                handleToggleExpandSideBar={handleToggleExpandSideBar}
+                expandSideBar={expandSideBar}
+            />
         </div>
     );
 };

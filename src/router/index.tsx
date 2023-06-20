@@ -7,6 +7,7 @@ import routes from './routes';
 // Private pages
 const Dashboard = React.lazy(async () => await import('../pages/private/Dashboard'));
 const Profile = React.lazy(async () => await import('../pages/private/Profile'));
+const IRS = React.lazy(async () => await import('../pages/private/IRS'));
 
 // Public pages
 const SignIn = React.lazy(async () => await import('../pages/public/SignIn'));
@@ -23,6 +24,7 @@ const Router = () => {
                 element={<ProtectedRoute>{Profile}</ProtectedRoute>}
                 path={routes.private.profile}
             />
+            <Route element={<ProtectedRoute>{IRS}</ProtectedRoute>} path={routes.private.irs} />
 
             <Route element={<PublicRoute>{SignIn}</PublicRoute>} path={routes.public.signin} />
             <Route
