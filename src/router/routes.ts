@@ -18,9 +18,9 @@ const routes = {
             url: '/profile',
             title: 'Profile'
         },
-        'residual-spray-tasks': {
-            url: '/residual-spray-tasks',
-            title: 'IRS'
+        users: {
+            url: '/users',
+            title: 'Users'
         }
     }
 };

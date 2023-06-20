@@ -125,8 +125,8 @@ const links = [
     },
     {
         id: 4,
-        title: 'IRS',
-        link: routes.private['residual-spray-tasks'].url,
+        title: 'Users',
+        link: routes.private['users'].url,
         icon: (
             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24">
                 <path
