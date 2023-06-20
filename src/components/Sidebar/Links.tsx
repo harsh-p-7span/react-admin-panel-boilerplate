@@ -36,12 +36,12 @@ const Links = ({ handleToggleExpandSideBar, expandSideBar }: IProps) => {
             <div className="border-t-2 border-gray-800">
                 <div className="flex-grow overflow-auto">
                     <div className="flex flex-col items-center justify-center space-y-1 py-2 pr-3 pl-2">
-                        <Link to={routes.private.profile} className="block w-full">
+                        <Link to={routes.private.profile.url} className="block w-full">
                             <div
                                 className={`w-full flex items-center h-11 ${
                                     expandSideBar ? 'px-5' : 'px-4 justify-center'
                                 } ${
-                                    location.pathname === routes.private.profile
+                                    location.pathname === routes.private.profile.url
                                         ? 'bg-gray-700 rounded'
                                         : ''
                                 }`}
@@ -113,7 +113,7 @@ const links = [
     {
         id: 0,
         title: 'Dashboard',
-        link: routes.private.dashboard,
+        link: routes.private.dashboard.url,
         icon: (
             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24">
                 <path
@@ -126,7 +126,7 @@ const links = [
     {
         id: 4,
         title: 'IRS',
-        link: routes.private.irs,
+        link: routes.private['residual-spray-tasks'].url,
         icon: (
             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24">
                 <path

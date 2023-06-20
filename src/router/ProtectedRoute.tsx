@@ -1,9 +1,10 @@
+import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import Sidebar from '../components/Sidebar';
+import lazyLoad from '../libs/lazyLoad';
 import { getUserToken } from '../utils/manageUserToken';
 import routes from './routes';
-import lazyLoad from '../libs/lazyLoad';
-import React from 'react';
-import Sidebar from '../components/Sidebar';
+import PrivateLayout from '../components/HOC/PrivateLayout';
 
 const ProtectedRoute = ({
     children
@@ -15,7 +16,10 @@ const ProtectedRoute = ({
 
     if ([null, ''].includes(token)) {
         return (
-            <Navigate to={`${routes.public.signin}?redirect=${location.pathname}`} replace={true} />
+            <Navigate
+                to={`${routes.public.signin.url}?redirect=${location.pathname}`}
+                replace={true}
+            />
         );
     }
 
@@ -23,7 +27,7 @@ const ProtectedRoute = ({
         <div className="flex h-full">
             <Sidebar />
 
-            {lazyLoad(children)}
+            <PrivateLayout>{lazyLoad(children)}</PrivateLayout>
         </div>
     );
 };

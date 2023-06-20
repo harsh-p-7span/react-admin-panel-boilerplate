@@ -1,12 +1,27 @@
 const routes = {
     public: {
-        signin: '/signin',
-        forgotPassword: '/forgot-password'
+        signin: {
+            url: '/signin',
+            title: 'Sign In'
+        },
+        'forgot-password': {
+            url: '/forgot-password',
+            title: 'Forgot Password'
+        }
     },
     private: {
-        dashboard: '/dashboard',
-        profile: '/profile',
-        irs: '/residual-spray-tasks'
+        dashboard: {
+            url: '/dashboard',
+            title: 'Dashboard'
+        },
+        profile: {
+            url: '/profile',
+            title: 'Profile'
+        },
+        'residual-spray-tasks': {
+            url: '/residual-spray-tasks',
+            title: 'IRS'
+        }
     }
 };
 

@@ -40,7 +40,7 @@ const Form = () => {
         mutationFn: SignInAPI,
         onSuccess: (data) => {
             console.log(data);
-            navigate(routes.private.dashboard);
+            navigate(routes.private.dashboard.url);
         },
         onError(error) {
             toast(_.get(error, 'response.data.message'));
@@ -189,7 +189,7 @@ const Form = () => {
                     )}
                 </button>
 
-                <Link to={routes.public.forgotPassword}>Forgot Password?</Link>
+                <Link to={routes.public['forgot-password'].url}>Forgot Password?</Link>
             </div>
         </form>
     );

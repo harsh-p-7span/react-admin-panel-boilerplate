@@ -8,7 +8,7 @@ const PublicRoute = ({ children }: { children: React.LazyExoticComponent<() => J
     const token = getUserToken();
 
     if (![null, ''].includes(token)) {
-        return <Navigate to={routes.private.dashboard} replace={true} />;
+        return <Navigate to={routes.private.dashboard.url} replace={true} />;
     }
 
     return lazyLoad(children);

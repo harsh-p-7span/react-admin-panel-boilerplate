@@ -50,7 +50,7 @@ const Form = () => {
             <p className="text-xl text-center">{successMessage}</p>
 
             <Link
-                to={routes.public.signin}
+                to={routes.public.signin.url}
                 className="mt-4 bg-[#F80400] text-white py-3 px-2 text-sm rounded-md w-36 text-center"
             >
                 Login?
@@ -124,7 +124,7 @@ const Form = () => {
                     )}
                 </button>
 
-                <Link to={routes.public.signin}>Login?</Link>
+                <Link to={routes.public.signin.url}>Login?</Link>
             </div>
         </form>
     );

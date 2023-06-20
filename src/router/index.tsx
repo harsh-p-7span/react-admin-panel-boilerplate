@@ -18,21 +18,24 @@ const Router = () => {
         <Routes>
             <Route
                 element={<ProtectedRoute>{Dashboard}</ProtectedRoute>}
-                path={routes.private.dashboard}
+                path={routes.private.dashboard.url}
             />
             <Route
                 element={<ProtectedRoute>{Profile}</ProtectedRoute>}
-                path={routes.private.profile}
+                path={routes.private.profile.url}
             />
-            <Route element={<ProtectedRoute>{IRS}</ProtectedRoute>} path={routes.private.irs} />
+            <Route
+                element={<ProtectedRoute>{IRS}</ProtectedRoute>}
+                path={routes.private['residual-spray-tasks'].url}
+            />
 
-            <Route element={<PublicRoute>{SignIn}</PublicRoute>} path={routes.public.signin} />
+            <Route element={<PublicRoute>{SignIn}</PublicRoute>} path={routes.public.signin.url} />
             <Route
                 element={<PublicRoute>{ForgotPassword}</PublicRoute>}
-                path={routes.public.forgotPassword}
+                path={routes.public['forgot-password'].url}
             />
 
-            <Route element={<Navigate to={routes.private.dashboard} />} path="*" />
+            <Route element={<Navigate to={routes.private.dashboard.url} />} path="*" />
         </Routes>
     );
 };
