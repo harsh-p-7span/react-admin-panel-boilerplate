@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import PageHeader from '../../../../components/PageHeader';
 import routes from '../../../../router/routes';
+import InputForm from './InputForm';
 
 const AddUser = () => {
     return (
@@ -15,7 +16,9 @@ const AddUser = () => {
                 ]}
             />
 
-            <div className="app__body">Add User</div>
+            <div className="app__body">
+                <InputForm />
+            </div>
         </Fragment>
     );
 };
