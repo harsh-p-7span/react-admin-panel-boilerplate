@@ -7,7 +7,7 @@ import routes from './routes';
 // Private pages
 const Dashboard = React.lazy(async () => await import('../pages/private/Dashboard'));
 const Profile = React.lazy(async () => await import('../pages/private/Profile'));
-const Users = React.lazy(async () => await import('../pages/private/Users'));
+const Users = React.lazy(async () => await import('../pages/private/Users/Listing'));
 
 // Public pages
 const SignIn = React.lazy(async () => await import('../pages/public/SignIn'));

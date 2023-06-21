@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
-import PageHeader from '../../../components/PageHeader';
-import Header from './Listing/Header';
-import List from './Listing/List';
+import PageHeader from '../../../../components/PageHeader';
+import Header from './Header';
+import List from './List';
 import PageHeaderButtons from './PageHeaderButtons';
 
 const Users = () => {
