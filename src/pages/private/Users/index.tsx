@@ -1,5 +1,11 @@
+import Listing from './Listing';
+
 const Users = () => {
-    return <div>Users</div>;
+    return (
+        <div>
+            <Listing />
+        </div>
+    );
 };
 
 export default Users;
