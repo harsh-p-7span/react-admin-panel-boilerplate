@@ -18,8 +18,12 @@ const routes = {
             url: '/profile',
             title: 'Profile'
         },
-        users: {
-            url: '/users',
+        'user/list': {
+            url: '/user/list',
+            title: 'Users'
+        },
+        'user/add': {
+            url: '/user/add',
             title: 'Users'
         }
     }

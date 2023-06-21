@@ -10,7 +10,7 @@ const Users = () => {
             <PageHeader
                 title="Users"
                 headerClass="justify-between"
-                extraElements={<PageHeaderButtons />}
+                rightSideElements={<PageHeaderButtons />}
             />
 
             <div className="app__body">

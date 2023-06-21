@@ -1,7 +1,13 @@
+import { Link } from 'react-router-dom';
+import routes from '../../../../router/routes';
+
 const PageHeaderButtons = () => {
     return (
         <div>
-            <div className="flex items-center gap-4 bg-red-600 text-white p-3 rounded-md cursor-pointer">
+            <Link
+                to={routes.private['user/add'].url}
+                className="flex items-center gap-4 bg-red-600 text-white p-3 rounded-md"
+            >
                 <svg
                     className="icon group-hover:text-gray-900 mx-auto relative z-10 text-white"
                     xmlns="http://www.w3.org/2000/svg"
@@ -13,7 +19,7 @@ const PageHeaderButtons = () => {
                 </svg>
 
                 <p className="text-xs">Add User</p>
-            </div>
+            </Link>
         </div>
     );
 };
